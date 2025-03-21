@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Review</title>
+    <!-- Google Fonts for Masaram Gondi -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Masaram+Gondi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Flash Messages */
+        .flash-messages {
+            max-width: 90%;
+            margin: 20px auto;
+            padding: 12px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .flash-messages .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .flash-messages .danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .flash-messages .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .flash-messages p {
+            margin: 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-align: center;
+            font-weight: bold;
+        }
+        nav a {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #45a049;
+        }
+        header {
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            color: white;
+            padding: 10px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+        /* General button styling */
+        .button {
+            display: inline-block;
+            padding: 5px 7px;
+            background-color: #4CAF50; /* Same as Reject */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 5px;
+            align-self: center;
+        }
+
+        /* Hover effect */
+        .button:hover {
+            background-color: #45a049; /* Same hover effect */
+        }
+
+        .logout-btn, .admin-panel-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .logout-btn:hover, .admin-panel-btn:hover {
+            background-color: #45a049;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .search-bar form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 12px;
+            width: 100%;
+            max-width: 600px;
+            font-family: "Noto Sans Masaram Gondi", serif;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .search-bar input[type="submit"] {
+            padding: 12px 25px;
+            border: none;
+            background-color: #4CAF50;
+            font-family: "Noto Sans Masaram Gondi", serif;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .search-bar input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .top-right {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+        }
+
+        .table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 90%; /* Ensure the table fills the container */
+  font-family: "Noto Sans Masaram Gondi", serif;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border: 1px solid #ddd;/* Handle long text in cells */
+}
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .noto-sans-hindi {
+            font-family: "Noto Sans", serif;
+            font-size: 16px;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings:
+                "wdth" 100;
+        }
+        .gondi-text {
+            font-family: "Noto Sans Masaram Gondi", serif;
+        }
+
+        td {
+            font-size: 14px;
+            color: #555;
+        }
+
+        form {
+            display: inline;
+        }
+
+        form input[type="submit"] {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-family: "Noto Sans Masaram Gondi", serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        .bulk-actions {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.bulk-actions button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+}
+
+.bulk-actions button:hover {
+    background-color: #45a049;
+}
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            h1 {
+                font-size: 20px;
+            }
+
+            h2 {
+                font-size: 12px;
+            }
+
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+
+            table {
+                width: 100%;
+                display: block;
+                overflow-x: auto;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            .button {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+            .search-bar {
+                flex-direction: column;
+                width: 95%;
+            }
+            .search-bar input[type="text"] {
+                width: 100%;
+                font-size: 16px;
+            }
+            .search-bar input[type="submit"] {
+                width: auto;
+                font-size: 16px;
+            }
+
+            form input[type="submit"] {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            h2 {
+                font-size: 12px;
+            }
+
+            .flash-messages {
+                padding: 8px;
+            }
+
+            .flash-messages p {
+                padding: 8px;
+            }
+
+            th, td {
+                padding: 8px;
+                font-size: 10px;
+            }
+
+            .button {
+                font-size: 10px;
+                padding: 3px 5px;
+            }
+
+            form input[type="submit"] {
+                font-size: 10px;
+                padding: 3px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Review Entries</h1>
+        <nav>
+            <a href="{{ url_for('add_word') }}">Add New Word</a>
+            <a href="{{ url_for('admin') }}">Admin Panel</a>
+            <a href="{{ url_for('main_page') }}">Home Page</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+    <div class="search-bar">
+        <form method="GET" action="/review_entries">
+            <input type="text" name="search" placeholder="Search entries..." value="{{ search_query }}">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <!-- Flash Messages -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Pending Entries Section -->
+    {% if pending_entries %}
+    <h2>Pending Entries</h2>
+    <form id="pending-bulk" method="POST" action="/bulk_action">
+        <div class="bulk-actions">
+            <button type="button" onclick="submitBulkAction('approve', 'pending')">Approve Selected</button>
+            <button type="button" onclick="submitBulkAction('reject', 'pending')">Reject Selected</button>
+          </div>
+    <div class="table-container">
+    <table>
+        <tr>
+            <th><input type="checkbox" onclick="toggleSelectAll(this, 'pending')"></th>
+            <th>Synset Name</th>
+            <th>Gondi Words</th>
+            <th>Hindi Pronunciation</th>
+            <th>Hindi Words</th>
+            <th>English Words</th>
+            <th>Definition</th>
+            <th>Hypernym</th>
+            <th>Hyponym</th>
+            <th>POS</th>
+            <th>Actions</th>
+
+        </tr>
+        {% for word in pending_entries %}
+        <tr>
+            <td><input type="checkbox" name="word_ids" value="{{ word.id }}" form="pending-bulk"></td>
+            <td>{{ word.name }}</td>
+            <td class="gondi-text">{{ word.words_gondi }}</td>
+            <td class="noto-sans-hindi">{{ word.words_hindi }}</td>
+            <td class="noto-sans-hindi">{{ word.hin_word }}</td>
+            <td>{{ word.words_english }}</td>
+            <td>{{ word.definition }}</td>
+            <td>{{ word.hypernym }}</td>
+            <td>{{ word.hyponym }}</td>
+            <td>{{ word.pos }}</td>
+            <td>
+                <!-- Form to approve a word -->
+                <form method="POST" action="/approve_word" style="display:inline;">
+                    <input type="hidden" name="word_id" value="{{ word.id }}">
+                    <input type="submit" value="Approve">
+                </form>
+                <!-- Form to reject a word -->
+                <form method="POST" action="/reject_word" style="display:inline;">
+                    <input type="hidden" name="word_id" value="{{ word.id }}">
+                    <input type="submit" value="Reject">
+                </form>
+                <!-- Link to edit the word -->
+                <a href="/edit_word/{{ word.id }}" class="button">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    </form>
+    {% endif %}
+
+    <hr>
+    {% if reviewed_entries %}
+    <h2>Reviewed Entries</h2>
+    <form id="reviewed-bulk" method="POST" action="/bulk_action">
+        <div class="bulk-actions">
+          <button type="button" onclick="submitBulkAction('approve', 'reviewed')">Approve Selected</button>
+          <button type="button" onclick="submitBulkAction('reject', 'reviewed')">Reject Selected</button>
+        </div>
+    <div class="table-container">
+    <table class="table-responsive">
+        <tr>
+            <th><input type="checkbox" onclick="toggleSelectAll(this, 'reviewed')"></th>
+            <th>Synset Name</th>
+            <th>Gondi Words</th>
+            <th>Hindi Pronunciation</th>
+            <th>Hindi Words</th>
+            <th>English Words</th>
+            <th>Definition</th>
+            <th>Hypernym</th>
+            <th>Hyponym</th>
+            <th>POS</th>
+            <th>Actions</th>
+        </tr>
+        {% for word in reviewed_entries %}
+        <tr>
+            <td><input type="checkbox" name="word_ids" value="{{ word.id }}" form="reviewed-bulk"></td>
+            <td>{{ word.name }}</td>
+            <td class="gondi-text">{{ word.words_gondi }}</td>
+            <td class="noto-sans-hindi">{{ word.words_hindi }}</td>
+            <td class="noto-sans-hindi">{{ word.hin_word }}</td>
+            <td>{{ word.words_english }}</td>
+            <td>{{ word.definition }}</td>
+            <td>{{ word.hypernym }}</td>
+            <td>{{ word.hyponym }}</td>
+            <td>{{ word.pos }}</td>
+            <td>
+                <form method="POST" action="/approve_word" style="display:inline;">
+                    <input type="hidden" name="word_id" value="{{ word.id }}">
+                    <input type="submit" value="Approve">
+                </form>
+                <!-- Form to reject a word -->
+                <form method="POST" action="/reject_word" style="display:inline;">
+                    <input type="hidden" name="word_id" value="{{ word.id }}">
+                    <input type="submit" value="Reject">
+                <a href="/edit_word/{{ word.id }}" class="button">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    </form>
+    {% endif %}
+
+    <!-- Approved Entries Section -->
+    {% if approved_entries %}
+    <h2>Approved Entries</h2>
+    <form id="approved-bulk" method="POST" action="/bulk_action">
+        <div class="bulk-actions">
+          <button type="button" onclick="submitBulkAction('pending', 'approved')">Send to Pending</button>
+        </div>
+    <div class="table-container">
+    <table>
+        <tr>
+            <th><input type="checkbox" onclick="toggleSelectAll(this, 'approved')"></th>
+            <th>Synset Name</th>
+            <th>Gondi Words</th>
+            <th>Hindi Pronunciation</th>
+            <th>Hindi Words</th>
+            <th>English Words</th>
+            <th>Definition</th>
+            <th>Hypernym</th>
+            <th>Hyponym</th>
+            <th>POS</th>
+            <th>Actions</th>
+        </tr>
+        {% for word in approved_entries %}
+        <tr>
+            <td><input type="checkbox" name="word_ids" value="{{ word.id }}" form="approved-bulk"></td>
+            <td>{{ word.name }}</td>
+            <td class="gondi-text">{{ word.words_gondi }}</td>
+            <td class="noto-sans-hindi">{{ word.words_hindi }}</td>
+            <td class="noto-sans-hindi">{{ word.hin_word }}</td>
+            <td>{{ word.words_english }}</td>
+            <td>{{ word.definition }}</td>
+            <td>{{ word.hypernym }}</td>
+            <td>{{ word.hyponym }}</td>
+            <td>{{ word.pos }}</td>
+            <td>
+                <form method="POST" action="/pending_word" style="display:inline;">
+                    <input type="hidden" name="word_id" value="{{ word.id }}">
+                    <input type="submit" value="Pending">
+                </form>
+                <a href="/edit_word/{{ word.id }}" class="button">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    </form>
+    {% endif %}
+
+    <script>
+        function submitBulkAction(action, section) {
+          const form = document.querySelector(`#${section}-bulk`);
+          const selected = form.querySelectorAll('input[name="word_ids"]:checked');
+          
+          if (selected.length === 0) {
+            alert('Please select at least one entry');
+            return;
+          }
+          
+          // Create hidden action input
+          const actionInput = document.createElement('input');
+          actionInput.type = 'hidden';
+          actionInput.name = 'action';
+          actionInput.value = action;
+          form.appendChild(actionInput);
+          
+          // Submit the form
+          form.submit();
+        }
+        
+        function toggleSelectAll(source, section) {
+          const form = document.querySelector(`#${section}-bulk`);
+          const checkboxes = form.querySelectorAll('input[name="word_ids"]');
+          checkboxes.forEach(cb => cb.checked = source.checked);
+        }
+        </script>
+</body>
+</html>

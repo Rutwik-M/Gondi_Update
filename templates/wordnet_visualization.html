@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gondi WordNet Visualization</title>
+
+    <!-- Include Vis.js library via CDN -->
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/vis-network/styles/vis-network.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<!-- Google Fonts for Masaram Gondi -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Masaram+Gondi&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E8F1F8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #4CAF50 !important;
+            color: white !important;
+            padding: 15px 23px !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 20px !important;
+            text-align: center !important;
+            font-weight: bold !important;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-family: 'Roboto';
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            font-family: 'Roboto';
+            font-size: 14px;
+            max-width: 85%;
+            margin: 5px auto;
+            color: #555;
+        }
+
+        nav a {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #5A87B4;
+        }
+
+        /* Graph Container */
+        .graph-container {
+            width: 93%;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: "Noto Sans Masaram Gondi", serif !important;
+            padding: 20px;
+            overflow: hidden;
+            height: 80vh; /* Default height based on viewport */
+            min-height: 450px; /* Ensuring it's not too small */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Ensure PyVis div inside graph-container fills height */
+        .graph-container > div {
+            width: 100% !important;
+            font-family: "Noto Sans Masaram Gondi", serif;
+            height: 100% !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Ensure the PyVis canvas adapts */
+        .graph-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Adjust for smaller screens */
+        @media screen and (max-width: 768px) {  
+            .graph-container {
+                height: 65vh !important;
+            }
+        }
+
+        @media screen and (max-width: 480px) {  
+            .graph-container {
+                height: 55vh !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gondi WordNet Visualization</h1>
+        <nav>
+            <a href="{{ url_for('main_page') }}">Home</a>
+        </nav>
+    </header>
+
+    <h2>Explore the Gondi WordNet Visually</h2>
+    <p>Interact with the graph to see relationships between words in Gondi, Hindi, and English.</p>
+    <p>Zoom in for better visualization | Hover or Tap over nodes for detailed information.</p>
+    
+    <!-- Graph Container -->
+    <div class="graph-container">
+        {{ pyvis_html|safe }}
+    </div>
+
+</body>
+</html>

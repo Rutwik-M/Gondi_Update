@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Word</title>
+    <!-- Google Fonts for Masaram Gondi -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Masaram+Gondi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        @media (max-width: 768px) {
+    header {
+        padding: 10px;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    .noto-sans-hindi {
+            font-family: "Noto Sans", serif;
+            font-size: 16px;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings:
+                "wdth" 100;
+        }
+    .gondi-text {
+            font-family: "Noto Sans Masaram Gondi", serif;
+        }
+    .container {
+        padding: 10px;
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: center;
+        font-family: "Noto Sans Masaram Gondi", serif;
+    }
+    .search-bar input[type="text"] {
+        width: 100%;
+        font-family: "Noto Sans Masaram Gondi", serif;
+    }
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin: 10px 0;
+            font-size: 2em;
+            letter-spacing: 1px;
+        }
+
+        /* Form Styling */
+        form {
+            max-width: 700px;
+            margin: 10px auto;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        form label {
+            flex: 1 1 calc(50% - 20px);
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        form input[type="text"] {
+            width: 95%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease;
+        }
+
+        form input[type="text"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        form input[type="submit"] {
+            flex: 1 1 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Word</h1>
+    <div style="overflow-x: auto;" class="gondi-text">
+    <form method="POST" action="/edit_word/{{ word.id }}">
+        <label>Synset Name: <input type="text" name="name" value="{{ word.name }}" ></label>
+        <label>Gondi Words: 
+            <input type="text" 
+                   name="words_gondi" 
+                   id="words_gondi" 
+                   class="gondi-text" 
+                   value="{{ word.words_gondi }}">
+        </label>
+        <label>Hindi Pronunciation: <input type="text" name="words_hindi" class="noto-sans-hindi" value="{{ word.words_hindi }}" required></label>
+        <label>Hindi Words: <input type="text" name="hin_word" class="noto-sans-hindi" value="{{ word.hin_word }}" required></label>
+        <label>English Words: <input type="text" name="words_english" value="{{ word.words_english }}" required></label>
+        <label>Definition: <input type="text" name="definition" value="{{ word.definition }}" ></label>
+        <label>Hypernym: <input type="text" name="hypernym" value="{{ word.hypernym }}"></label>
+        <label>Hyponym: <input type="text" name="hyponym" value="{{ word.hyponym }}"></label>
+        <label>Part of Speech:
+            <select name="pos" required>
+              <option value="{{ word.pos }}">{{ word.pos }}</option>
+              <option value="n">Noun</option>
+              <option value="v">Verb</option>
+              <option value="a">Adjective</option>
+              <option value="r">Adverb</option>
+              <option value="co">Conjunction</option>
+              <option value="pr">Preposition</option>
+            </select>
+          </label>
+        <input type="submit" value="Update">
+        <input type="submit" name="action" value="Update and Approve">
+    </form>
+    </div>
+    <script src="https://s.keyman.com/kmw/engine/17.0.335/keymanweb.js"></script>
+    <script src="https://s.keyman.com/kmw/engine/17.0.335/kmwuitoggle.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          // Initialize KeymanWeb with auto attach
+          keyman.init({ attachType: 'auto' }).then(() => {
+              console.log('KeymanWeb initialized');
+              // Load the default system keyboard (English)
+              keyman.addKeyboards('@en', '@hi', '@gon-gonm'); // Load all keyboards at once
+              console.log('Keyboards loaded');
+          }).catch(error => {
+              console.error('Error initializing KeymanWeb:', error);
+          });
+      
+          // Function to load and activate a specific keyboard
+          function loadAndActivateKeyboard(keyboardId) {
+              console.log(`Activating keyboard: ${keyboardId}`);
+              keyman.setActiveKeyboard(keyboardId).catch(error => {
+                  console.error(`Error activating keyboard ${keyboardId}:`, error);
+              });
+          }
+      
+          // Assuming you have form fields with unique IDs for Hindi and Gondi entries
+          var gondiEntry = document.getElementById('words_gondi');
+    var hindiPronunciationEntry = document.getElementById('words_hindi');
+    var hindiWordsEntry = document.getElementById('hin_word');
+    
+    keyman.attach(gondiEntry, '@gon-gonm');
+    keyman.attach(hindiPronunciationEntry, '@hi');
+    keyman.attach(hindiWordsEntry, '@hi');
+      });
+    </script>
+</body>
+</html>

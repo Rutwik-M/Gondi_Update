@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gondi WordNet</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Masaram+Gondi&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .gondi-text {
+            font-family: "Noto Sans Masaram Gondi", serif;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            color: white;
+            text-align: center;
+            padding: 15px 5px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        p {
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        nav a {
+            padding: 12px 20px;
+            background-color: white;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .search-bar form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 12px;
+            width: 100%;
+            max-width: 600px;
+            font-family: "Noto Sans Masaram Gondi", serif;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .search-bar input[type="submit"] {
+            padding: 12px 25px;
+            border: none;
+            background-color: #4CAF50;
+            font-family: "Noto Sans Masaram Gondi", serif;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .search-bar input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .approved-count {
+            font-size: 18px;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            font-size: 15px !important;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+                margin: 0;
+            }
+            p {
+                margin: 0;
+                margin-bottom: 10px !important;
+                font-size: 0.85rem;
+            }
+            nav {
+                display: flex;
+                justify-content: center;
+                margin: 0;
+                font-size: 0.9rem;
+                width: 95%;
+                height: 90%;
+                margin-left: 10px;
+            }
+            nav a {
+                display: flex;
+                padding: 5px;
+                width: 50%;
+                justify-content: center;
+                text-align: center;
+            }
+            .search-bar {
+                flex-direction: column;
+                width: 95%;
+            }
+            .search-bar input[type="text"] {
+                width: 100%;
+                font-size: 16px;
+            }
+            .search-bar input[type="submit"] {
+                width: auto;
+                font-size: 16px;
+            }
+            table, th, td {
+                font-size: 10px !important;
+            }
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Gondi WordNet</h1>
+    <p>Explore Gondi language words and meanings</p>
+    <nav>
+        <a href="{{ url_for('wordnet_visualization') }}">Visualize WordNet</a>
+        <a href="{{ url_for('add_word') }}">Add New Word</a>
+        <a href="{{ url_for('review') }}">Become Reviewer</a>
+    </nav>
+</header>
+
+<div class="container">
+    <p class="approved-count">Currently, there are <strong>{{ approved_count }}</strong> synsets in the dataset.</p>
+
+    <div class="search-bar">
+        <form method="POST" action="/">
+            <input type="text" name="search" placeholder="Search for a word..." value="{{ search_query }}">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <tr>
+                <th>Synset Name</th>
+                <th>Gondi Words</th>
+                <th>Hindi Pronunciation</th>
+                <th>Hindi Words</th>
+                <th>English Words</th>
+                <th>Definition</th>
+            </tr>
+            {% for word in approved_entries %}
+            <tr>
+                <td>{{ word.name }}</td>
+                <td class="gondi-text">{{ word.words_gondi }}</td>
+                <td>{{ word.words_hindi }}</td>
+                <td>{{ word.hin_word }}</td>
+                <td>{{ word.words_english }}</td>
+                <td>{{ word.definition }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% if not approved_entries and search_query %}
+    <p style="color: #888; font-size: 16px;">No results found for "{{ search_query }}".</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
