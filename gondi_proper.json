@@ -1,0 +1,78 @@
+{
+    "Vowels": {
+      "अ": {"devanagari": "अ", "gondi_script": "𑴀"},
+      "आ": {"devanagari": "आ", "gondi_script": "𑴁"},
+      "इ": {"devanagari": "इ", "gondi_script": "𑴂"},
+      "ई": {"devanagari": "ई", "gondi_script": "𑴃"},
+      "उ": {"devanagari": "उ", "gondi_script": "𑴄"},
+      "ऊ": {"devanagari": "ऊ", "gondi_script": "𑴅"},
+      "ए": {"devanagari": "ए", "gondi_script": "𑴆"},
+      "ऐ": {"devanagari": "ऐ", "gondi_script": "𑴈"},
+      "ओ": {"devanagari": "ओ", "gondi_script": "𑴉"},
+      "औ": {"devanagari": "औ", "gondi_script": "𑴋"},
+      "अं": {"devanagari": "अं", "gondi_script": "𑈀𑵀"},
+      "अः": {"devanagari": "अः", "gondi_script": "𑈀𑵁"}
+      
+    },
+    "Consonants": {
+      "क": {"devanagari": "क", "gondi_script": "𑴌"},
+      "ख": {"devanagari": "ख", "gondi_script": "𑴍"},
+      "ग": {"devanagari": "ग", "gondi_script": "𑴎"},
+      "घ": {"devanagari": "घ", "gondi_script": "𑴏"},
+      "ङ": {"devanagari": "ङ", "gondi_script": "𑴐"},
+      "च": {"devanagari": "च", "gondi_script": "𑴑"},
+      "छ": {"devanagari": "छ", "gondi_script": "𑴒"},
+      "ज": {"devanagari": "ज", "gondi_script": "𑴓"},
+      "झ": {"devanagari": "झ", "gondi_script": "𑴔"},
+      "ञ": {"devanagari": "ञ", "gondi_script": "𑴕"},
+      "ट": {"devanagari": "ट", "gondi_script": "𑴛"},
+      "ठ": {"devanagari": "ठ", "gondi_script": "𑴜"},
+      "ड": {"devanagari": "ड", "gondi_script": "𑴘"},
+      "ड़": {"devanagari": "ड़", "gondi_script": "𑴘"},
+      "ढ": {"devanagari": "ढ", "gondi_script": "𑴙"},
+      "ण": {"devanagari": "ण", "gondi_script": "𑴚"},
+      "त": {"devanagari": "त", "gondi_script": "𑴛"},
+      "थ": {"devanagari": "थ", "gondi_script": "𑴜"},
+      "द": {"devanagari": "द", "gondi_script": "𑴝"},
+      "ध": {"devanagari": "ध", "gondi_script": "𑴞"},
+      "न": {"devanagari": "न", "gondi_script": "𑴟"},
+      "प": {"devanagari": "प", "gondi_script": "𑴠"},
+      "फ": {"devanagari": "फ", "gondi_script": "𑴡"},
+      "ब": {"devanagari": "ब", "gondi_script": "𑴢"},
+      "भ": {"devanagari": "भ", "gondi_script": "𑴣"},
+      "म": {"devanagari": "म", "gondi_script": "𑴤"},
+      "य": {"devanagari": "य", "gondi_script": "𑴥"},
+      "र": {"devanagari": "र", "gondi_script": "𑴦"},
+      "ल": {"devanagari": "ल", "gondi_script": "𑴧"},
+      "व": {"devanagari": "व", "gondi_script": "𑴨"},
+      "श": {"devanagari": "श", "gondi_script": "𑴩"},
+      "ष": {"devanagari": "ष", "gondi_script": "𑴪"},
+      "स": {"devanagari": "स", "gondi_script": "𑴫"},
+      "ह": {"devanagari": "ह", "gondi_script": "𑴬"},
+      "क्ष": {"devanagari": "क्ष", "gondi_script": "𑴭"},
+      "ज्ञ": {"devanagari": "ज्ञ", "gondi_script": "𑴮"},
+      "त्र": {"devanagari": "त्र", "gondi_script": "𑴯"}
+    },
+    "VowelSigns": {
+      "ा": {"devanagari": "ा", "gondi_script": "𑴱"},
+      "ि": {"devanagari": "ि", "gondi_script": "𑴲"},
+      "ी": {"devanagari": "ी", "gondi_script": "𑴳"},
+      "ु": {"devanagari": "ु", "gondi_script": "𑴴"},
+      "ू": {"devanagari": "ू", "gondi_script": "𑴵"},
+      "े": {"devanagari": "े", "gondi_script": "𑴺"},
+      "ै": {"devanagari": "ै", "gondi_script": "𑴻"},
+      "ो": {"devanagari": "ो", "gondi_script": "𑴼"},
+      "ौ": {"devanagari": "ौ", "gondi_script": "𑴽"}
+    },
+    "Modifiers": {
+      "ं": {"devanagari": "ं", "gondi_script": "𑴰"},
+      "ँ": {"devanagari": "ँ", "gondi_script": "𑴯"},
+      "ः": {"devanagari": "ः", "gondi_script": "𑴱"},
+      "्": {"devanagari": "्", "gondi_script": "्"}
+    } 
+  }
+
+
+
+
+   
